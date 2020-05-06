@@ -3,6 +3,12 @@
 A C++ Program that prints a given image as ascii characters to the console or saves it to 
 a file if the  `-f` option is provided;
 
+
+
+## Example 
+
+![example](example.png)
+
 ## Usage
 
 > You must have the Imagemagick program and Magick++ library to compile this program 
