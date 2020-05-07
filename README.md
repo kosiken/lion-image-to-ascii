@@ -31,4 +31,8 @@ image-to-ascii imagePath [-r widthxheight] [-a asciichars] [-f filename]
 **Kosiken**
 
 
-# Lion image to ascii
+### Todo
+
+- Fix window size option [ <span style="color: red">x</span> ]
+- Add option for scale [ <span style="color: red">x</span> ]
+- Fix issues for gif resize [ <span style="color: red">x</span> ]

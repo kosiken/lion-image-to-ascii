@@ -3,11 +3,16 @@
 #include <string>
 #include <Magick++.h>
 #include "LionFilters.h"
+#include <chrono>
+#include <thread>
 using namespace Magick;
 
 #include "ToAScii.h"
+
 using namespace std;
 
+using namespace std::this_thread;
+using namespace std::chrono;
 ToAscii::ToAscii(lionOptions opt)
 {
     options = opt;
@@ -15,7 +20,22 @@ ToAscii::ToAscii(lionOptions opt)
     try
     {
         image.read(options.fileName);
-        buildImage();
+        if(image.format() == "CompuServe graphics interchange format"){
+    readImages(&images, options.fileName);
+    while(1){
+    for (list<Image>::iterator it = images.begin(); it != images.end(); it++){
+    image = *it;
+ buildImage();
+ printImage();
+
+ sleep_for(milliseconds(50));
+
+ //cout<<"\033[2J";
+ cout<<"\033[0;0G";
+    }
+    }
+}
+    else  buildImage();
     }
 
     catch (ErrorBlob err)
@@ -30,8 +50,7 @@ ToAscii::ToAscii(lionOptions opt)
 void ToAscii::buildImage()
 {LionResizer rsizer(image.size().width(), image.size().height(),1.0);
     sizer = rsizer;
-
-    if (options.resize.length() > 0)
+if (options.resize.length() > 0)
     {
         // pointer holding the dimensions of the resize option
         int *resize = parseResizeOption(options.resize);
@@ -82,7 +101,7 @@ void ToAscii::buildImage()
             LionPixel pixel(r, g, b, a);
 
             *(imageMatrix + currentIndex) = pixel;
-            //   cout<<imageMatrix[currentIndex]<<endl;
+            //  cout<<imageMatrix[currentIndex]<<endl;
             currentIndex++;
         }
     }
@@ -141,3 +160,93 @@ for(int i=0; i<s; i++){
 }
 
  } 
+
+void ToAscii::buildGif() {
+list<Image> imageList;
+readImages( &imageList, options.fileName);
+images = imageList;
+list<LionPixel *> imgpxs;
+int u = 0;
+for (list<Image>::iterator it = imageList.begin(); it != imageList.end(); it++){
+LionPixel* m = makeMatrix(*it);
+  int H = imageSize.height;
+    int W = imageSize.width;
+    string ascii = ".,:;i1tfLCG08@";
+ //  if(u==0) string ans =   pixelMatrixToAscii(m, H,W, ascii, true); 
+   // cout<<"\n\n\n";
+    u++;
+//  for(int i = 0; i<WxH; i++){
+//      string ans =   pixelMatrixToAscii(imageMatrix, it->size().width(), it->size().height(), ascii, true); 
+//      cout m
+//  }
+imgpxs.push_back(m);
+
+
+}
+
+
+
+}
+
+ LionPixel* ToAscii::makeMatrix(Image img){
+
+Image im(img);
+     LionResizer rsizer(im.size().width(), im.size().height(),1.0);
+    sizer = rsizer;
+if (options.resize.length() > 0)
+    {
+        // pointer holding the dimensions of the resize option
+        int *resize = parseResizeOption(options.resize);
+        imageSize.width = *resize;
+        imageSize.height = *(resize + 1);
+
+        imageSize = sizer.computeSize(imageSize, true);
+    }
+    else
+    {
+        imageSize = sizer.computeSize(true);
+    }
+
+    int W = imageSize.width;
+    int H = imageSize.height;
+    string width = to_string(W), heigth = to_string(H);
+
+    // force image magick to force image resize
+    string dimen = width + "x" + heigth + '!';
+
+    Geometry geom(dimen.c_str());
+
+    im.resize(geom);
+
+    // Set the image type to TrueColor DirectClass representation.
+    im.type(TrueColorType);
+     s = imageSize.width * imageSize.height;
+    LionPixel *imageMatrixN = new LionPixel[s];
+
+    // used to keep track of where we are in the image
+    int currentIndex = 0;
+    for (int i = 0; i < H; i++)
+    {
+        for (int w = 0; w < W; w++)
+        {
+            // for some reason image.getPixels() returns a Quantum that
+            // we cannot access to get pixel data so we resort to use
+            // the Color class
+            const Color pixel_sample = image.pixelColor(w, i);
+            ColorRGB color(pixel_sample);
+            ;
+            int r = (int)(color.red() * 255);
+            int g = (int)(color.green() * 255);
+            int b = (int)(color.blue() * 255);
+
+            double a = color.alpha();
+
+            LionPixel pixel(r, g, b, a);
+
+            *(imageMatrixN + currentIndex) = pixel;
+              cout<<imageMatrixN[currentIndex]<<endl;
+            currentIndex++;
+        }
+    }
+return imageMatrixN;
+ };

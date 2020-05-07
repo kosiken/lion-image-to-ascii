@@ -2,6 +2,7 @@
 #define TO_ASCII_H
 #include <iostream>
 #include <vector>
+#include <list>
 #include <string>
 #include <Magick++.h>
 using namespace Magick;
@@ -15,6 +16,7 @@ private:
     lsize imageSize;
     LionResizer sizer;
     LionPixel*imageMatrix;
+    list<Image> images;
     int s;
 
     /* data */
@@ -27,6 +29,8 @@ public:
 
     void saveFile(const char* fileName);
     void filter();
+    void buildGif();
+    LionPixel* makeMatrix(Image);
 };
 
 #endif

@@ -46,9 +46,11 @@ int main(int argc, char **argv)
     ToAscii toas(options);
 
 
-if(options.saveFile.length()> 0) toas.saveFile(options.saveFile.c_str());
-else  toas.printImage();
+// if(options.saveFile.length()> 0) toas.saveFile(options.saveFile.c_str());
+// else  toas.printImage();
 
 
-    return 0;
+//     return 0;
 }
+
+
