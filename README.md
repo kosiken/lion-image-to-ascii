@@ -1,8 +1,7 @@
 # Lion image to ascii
 
 A C++ Program that prints a given image as ascii characters to the console or saves it to 
-a file if the  `-f` option is provided;
-
+a file if the  `-f` option is provided; it has kind of a faulty support for animating gif images and if you can figure it out I'll love your contribution
 
 
 ## Example 

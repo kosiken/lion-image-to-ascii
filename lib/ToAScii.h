@@ -29,8 +29,7 @@ public:
 
     void saveFile(const char* fileName);
     void filter();
-    void buildGif();
-    LionPixel* makeMatrix(Image);
+
 };
 
 #endif
