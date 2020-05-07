@@ -36,11 +36,11 @@ limgtoasci imagePath
 
 ## Options
 
-| Option          | Use                  |Example   |
-| -------------   |:--------------------:| --------:|
-| -r --resize     | resize the image     | -r 5-x50 |
-| -s --savefile   | Save output to file  |      $12 |
-| -a --ascii      | ascii characters used|       $1 |
+| Option          | Use                  |
+| -------------   |:--------------------:|
+| -r --resize     | resize the image     |
+| -s --savefile   | Save output to file  |
+| -a --ascii      | ascii characters used|
 
 
 ## Tools
