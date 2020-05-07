@@ -270,7 +270,7 @@ char asciify(LionPixel &pixel, string &ascii)
 
 string pixelMatrixToAscii(LionPixel *pixelMatrix, int height, int width, string asci, bool print = false)
 {
-    string ret = "{pixels:[";
+    string ret = "{\"pixels\":[";
     int currentIndex = 0, stop = (width*height)-1;
 
 
