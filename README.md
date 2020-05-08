@@ -12,6 +12,20 @@ a file if the  `-f` option is provided; it has kind of a faulty support for anim
 
 > You must have the Imagemagick program and Magick++ library to compile this program 
 
+```sh
+
+make
+
+```
+
+then run
+
+```sh
+
+make install && make clean
+
+```
+
 After compiling just run ->
 
 ```sh
