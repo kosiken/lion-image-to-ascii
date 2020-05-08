@@ -2,7 +2,7 @@
 A C++ Program that prints a given image as ascii characters to the console
 */
 
-#include "lib/ToAScii.h"
+#include "ToAScii.h"
 
 #include <iostream>
 
@@ -13,13 +13,7 @@ A C++ Program that prints a given image as ascii characters to the console
 int main(int argc, char **argv)
 {
 
-    string usage = "Image to Ascii utility\n"
-                   "Prints an image as ascii characters \n"
-                   "Author Allison Kosy<https://github.com/kosiken>\n\n";
-    "Usage ";
-
-    usage += argv[0];
-    usage += " imagePath [--size colxrows] [--ascii asciiCharacters]\n\n";
+ 
 
     string ascii="";
     int H, W;
@@ -29,7 +23,7 @@ int main(int argc, char **argv)
 
     if (options.errors.size() > 0)
     {
-        cout << usage << endl;
+        cout << usage() << endl;
         list<string>::iterator pos = options.errors.begin();
         while (pos != options.errors.end())
         {
@@ -41,7 +35,7 @@ int main(int argc, char **argv)
         }
         return 0;
     }
-   
+  // cout<<options.fileName;
    //cout<<options.winsize<<endl;
     ToAscii toas(options);
 

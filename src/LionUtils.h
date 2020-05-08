@@ -1,6 +1,6 @@
 #ifndef LION_UTILS_H
 #define LION_UTILS_H
-
+# define PACKAGE_VERSION "1.0.1" 
 #include <list>
 
 #include <string>
@@ -37,6 +37,8 @@ struct lionOptions
     list<string> errors;
     string ascii;
 };
+
+string usage();
 // converts the resize option WidthxHeight to an array [Width, Height]
 int *parseResizeOption(string dimen);
 
