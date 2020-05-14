@@ -3,8 +3,7 @@
 
 #include "Pixel.h"
 
-// namespace LFilters;
-
+// A simple class to  add simple filters to the output
 class LionFilters
 {
 

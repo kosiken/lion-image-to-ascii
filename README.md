@@ -41,7 +41,7 @@ limgtoasci imagePath
 | -r --resize     | resize the image     |
 | -s --savefile   | Save output to file  |
 | -a --ascii      | ascii characters used|
-
+| -f --filter     | add a filter (1 to 3)|
 
 ## Tools
 

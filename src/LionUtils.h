@@ -35,6 +35,7 @@ struct lionOptions
     string winsize;
     string saveFile;
     list<string> errors;
+    int filter = 0;
     string ascii;
 };
 

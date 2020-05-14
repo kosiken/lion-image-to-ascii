@@ -60,6 +60,7 @@ lionOptions parseOptions(int argc, char **argv)
         {"resize", required_argument, 0, 'r'},
         {"ascii", required_argument, 0, 'a'},
         {"savefile", required_argument, 0, 's'},
+        {"filter", required_argument, 0, 'f'},
         {"version", no_argument, 0, 'v'},
         {"help", no_argument, 0, '?'},
         {0, 0, 0, 0}};
@@ -73,7 +74,7 @@ lionOptions parseOptions(int argc, char **argv)
     }
     args.fileName = *(argv + 1);
 
-    while ((c = getopt_long(argc, argv, "r:a:s:v", long_options, &option_index)) != -1)
+    while ((c = getopt_long(argc, argv, "r:a:s:f:v", long_options, &option_index)) != -1)
     {
         // cout<<optarg;
         switch (c)
@@ -87,6 +88,9 @@ lionOptions parseOptions(int argc, char **argv)
             break;
         case 'a':
             args.ascii = optarg;
+            break;
+        case 'f':
+            args.filter = atoi(optarg);
             break;
 #ifdef PACKAGE_VERSION
         case 'v':

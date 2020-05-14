@@ -20,22 +20,26 @@ ToAscii::ToAscii(lionOptions opt)
     try
     {
         image.read(options.fileName);
-        if(image.format() == "CompuServe graphics interchange format"){
-    readImages(&images, options.fileName);
-    while(1){
-    for (list<Image>::iterator it = images.begin(); it != images.end(); it++){
-    image = *it;
- buildImage();
- printImage();
+        if (image.format() == "CompuServe graphics interchange format")
+        {
+            readImages(&images, options.fileName);
+            while (1)
+            {
+                for (list<Image>::iterator it = images.begin(); it != images.end(); it++)
+                {
+                    image = *it;
+                    buildImage();
+                    printImage();
 
- sleep_for(milliseconds(50));
+                    sleep_for(milliseconds(50));
 
- //cout<<"\033[2J";
- cout<<"\033[0;0G";
-    }
-    }
-}
-    else  buildImage();
+                    //cout<<"\033[2J";
+                    cout << "\033[0;0G";
+                }
+            }
+        }
+        else
+            buildImage();
     }
 
     catch (ErrorBlob err)
@@ -48,9 +52,10 @@ ToAscii::ToAscii(lionOptions opt)
 };
 
 void ToAscii::buildImage()
-{LionResizer rsizer(image.size().width(), image.size().height(),1.0);
+{
+    LionResizer rsizer(image.size().width(), image.size().height(), 1.0);
     sizer = rsizer;
-if (options.resize.length() > 0)
+    if (options.resize.length() > 0)
     {
         // pointer holding the dimensions of the resize option
         int *resize = parseResizeOption(options.resize);
@@ -77,7 +82,7 @@ if (options.resize.length() > 0)
 
     // Set the image type to TrueColor DirectClass representation.
     image.type(TrueColorType);
-     s = imageSize.width * imageSize.height;
+    s = imageSize.width * imageSize.height;
     imageMatrix = new LionPixel[s];
 
     // used to keep track of where we are in the image
@@ -105,6 +110,22 @@ if (options.resize.length() > 0)
             currentIndex++;
         }
     }
+    if (options.filter > 0)
+    {
+        switch (options.filter)
+        {
+        case 1:
+            filter(LionFilters::FilterOne);
+            break;
+        case 2:
+            filter(LionFilters::FilterTwo);
+            break;
+
+        default:
+            filter(LionFilters::FilterThree);
+            break;
+        }
+    }
 }
 
 void ToAscii::printImage()
@@ -119,15 +140,11 @@ void ToAscii::printImage()
     {
 
         ascii = options.ascii;
-     
     }
-  ans =   pixelMatrixToAscii(imageMatrix, H, W, ascii, true);   
-
- 
-
+    ans = pixelMatrixToAscii(imageMatrix, H, W, ascii, true);
 }
- void ToAscii::saveFile(const char* fileName){
-
+void ToAscii::saveFile(const char *fileName)
+{
 
     const int H = imageSize.height;
     const int W = imageSize.width;
@@ -138,26 +155,20 @@ void ToAscii::printImage()
     {
 
         ascii = options.ascii;
-     
     }
-  ans =   pixelMatrixToAscii(imageMatrix, H, W, ascii, false);   
-   
+    ans = pixelMatrixToAscii(imageMatrix, H, W, ascii, false);
 
+    FILE *mfile = fopen(fileName, "w");
+    fprintf(mfile, ans.c_str());
 
- FILE *mfile = fopen(fileName, "w");
- fprintf(mfile, ans.c_str());
+    cout << "done" << endl;
+};
 
-   
-    cout << "done"<<endl;
-  
- };
+void ToAscii::filter(int filterType)
+{
 
- void ToAscii::filter() {
-
-for(int i=0; i<s; i++){
-    LionFilters::filter(imageMatrix[i], LionFilters::filters::FilterThree);
-
+    for (int i = 0; i < s; i++)
+    {
+        LionFilters::filter(imageMatrix[i], filterType);
+    }
 }
-
- } 
-

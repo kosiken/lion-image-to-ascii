@@ -28,7 +28,7 @@ public:
     void printImage();
 
     void saveFile(const char* fileName);
-    void filter();
+    void filter(int);
 
 };
 
