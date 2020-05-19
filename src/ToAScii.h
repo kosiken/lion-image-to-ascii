@@ -11,11 +11,19 @@ using namespace Magick;
 class ToAscii
 {
 private:
+  // command line arguments passed
     lionOptions options;
+
+    // holds the current image we are working on
     Image image;
+
+    // holds the size(w, h) we use to print the image 
     lsize imageSize;
+
     LionResizer sizer;
+    
     LionPixel*imageMatrix;
+    
     list<Image> images;
     int s;
 

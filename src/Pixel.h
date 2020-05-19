@@ -28,11 +28,13 @@ class LionPixel {
         
         // returns the intensity at which to generate ansi colors for the pixel
         double intensity();
+        
         void updateCss(){
             std::strcpy(css,("rgb("+ std::to_string(r) +','+ std::to_string(g) +','+
              std::to_string(b)+')').c_str());
         };
 
+        // returns the pixels value as a CSS color in the format rgb(r,g,b)
         char*getCSS() {
             return css;
         }

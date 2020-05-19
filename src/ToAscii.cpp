@@ -20,9 +20,14 @@ ToAscii::ToAscii(lionOptions opt)
     try
     {
         image.read(options.fileName);
+
+        // check for gif image
         if (image.format() == "CompuServe graphics interchange format")
         {
             readImages(&images, options.fileName);
+
+            // we have to loop over pictures in the gif to give a
+            // feel of animation
             while (1)
             {
                 for (list<Image>::iterator it = images.begin(); it != images.end(); it++)
@@ -31,9 +36,11 @@ ToAscii::ToAscii(lionOptions opt)
                     buildImage();
                     printImage();
 
+                    // necessary to avoid the printing being wayward
+                    // slows down gif play speed though
                     sleep_for(milliseconds(50));
 
-                    //cout<<"\033[2J";
+                    // ANSI sequence to move cursor to start of the console
                     cout << "\033[0;0G";
                 }
             }
@@ -106,7 +113,7 @@ void ToAscii::buildImage()
             LionPixel pixel(r, g, b, a);
 
             *(imageMatrix + currentIndex) = pixel;
-            //  cout<<imageMatrix[currentIndex]<<endl;
+            
             currentIndex++;
         }
     }

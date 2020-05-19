@@ -20,13 +20,20 @@ LionResizer::LionResizer(int width, int height, double scalel)
     pixel_size.height = 1;
     scale = scalel;
 }
-LionResizer::LionResizer(int width, int height, double scalel, lsize win){
-picSize.width = width;
+LionResizer::LionResizer(int width, int height, double scalel, lsize win)
+{
+    picSize.width = width;
+
     picSize.height = height;
-       window_size.width = win.width;
+    
+    window_size.width = win.width;
+    
     window_size.height = win.height;
-pixel_size.width = 2;
+    
+    pixel_size.width = 2;
+    
     pixel_size.height = 1;
+    
     scale = scalel;
 };
 lsize LionResizer::computeSize(bool console = true)

@@ -40,7 +40,7 @@ struct lionOptions
 };
 
 string usage();
-// converts the resize option WidthxHeight to an array [Width, Height]
+// converts the resize option WidthxHeight to an int pointer containing [Width, Height]
 int *parseResizeOption(string dimen);
 
 // parses the command line arguments to create options
@@ -49,8 +49,8 @@ lionOptions parseOptions(int argc, char **argv);
 // edit transperent pixels
 LionPixel pixelBg(LionPixel, lionPixelStruct &);
 
-// Converts a matrix of pixels to ASCII characters
-string pixelMatrixToAscii(LionPixel *, const int, const int, string, bool);
+// Converts a matrix of pixels to ASCII characters and prints to the console if print is true
+string pixelMatrixToAscii(LionPixel  *pixelMatrix, int height, int width, string asci, bool print);
 
 // Converts a pixel to an ascii character
 char asciify(LionPixel &, string &);

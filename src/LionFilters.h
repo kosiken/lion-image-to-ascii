@@ -17,8 +17,14 @@ public:
     };
 
     static void filter(LionPixel &lionPixel, int);
+
+    //This would filter the picture by increasing all the pixels red value to 255
     static void filterOne(LionPixel &pixel);
+
+    //This would filter the picture by increasing all the pixels green value to 255
     static void filterTwo(LionPixel &pixel);
+
+    //This would filter the picture by increasing all the pixels blue value to 255
     static void filterThree(LionPixel &pixel);
     
 };
